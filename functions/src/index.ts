@@ -10,7 +10,7 @@ const collection_name = "resorts";
 // // https://firebase.google.com/docs/functions/typescript
 
 // export const helloWorld = functions.https.onRequest(async (request, response) => {
-  export const scrapeAvoriaz = functions.pubsub.schedule("0 9 * * *").timeZone("Europe/London").onRun(async (context) => {
+export const scrapeAvoriaz = functions.pubsub.schedule("0 9 * * *").timeZone("Europe/London").onRun(async (context) => {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
     });
@@ -69,13 +69,6 @@ const collection_name = "resorts";
         }
     }
 
-    response.send({
-        name: "Avoriaz",
-        pistes: pistes2D,
-        lifts: lifts2D,
-    });
-
-
     // Create final JSON output of array of objects
     const pistes = pistes2D.map((item) => ({ color: item[0], open: item[1], total: item[2] }));
     const lifts = lifts2D.map((item) => ({type: item[0], open: item[1], total: item[2]}))
@@ -89,21 +82,10 @@ const collection_name = "resorts";
     } catch (error) {
         console.log(error);
         functions.logger.error(error);
-        response.sendStatus(500);
     }
-
-    response.sendStatus(200);
-    return;
 });
-/* 
-const image = await page.screenshot({path: '1.png'});
 
-  response.writeHead(200, {
-    'Content-Type': 'image/png',
-    'Content-Length': image.length
-  });
-
-  response.end(image); */
+// TYPESCRIPT RELATED VALUES
 type PisteType = {
     color: string;
     open: string;
