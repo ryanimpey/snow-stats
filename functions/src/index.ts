@@ -9,8 +9,8 @@ const collection_name = "resorts";
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 
-// export const helloWorld = functions.pubsub.schedule("0 9 * * *").timeZone("Europe/London").onRun(async (context) => {
-export const helloWorld = functions.https.onRequest(async (request, response) => {
+// export const helloWorld = functions.https.onRequest(async (request, response) => {
+  export const scrapeAvoriaz = functions.pubsub.schedule("0 9 * * *").timeZone("Europe/London").onRun(async (context) => {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
     });
